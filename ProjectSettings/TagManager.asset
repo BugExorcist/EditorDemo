@@ -3,7 +3,12 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - "UI\u6587\u672C"
+  - "UI\u4E0B\u62C9"
+  - "UI\u5F00\u5173"
+  - "\u5730\u9762"
+  - Placeholder
   layers:
   - Default
   - TransparentFX
