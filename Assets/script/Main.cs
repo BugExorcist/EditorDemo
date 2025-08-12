@@ -214,7 +214,7 @@ public class Main : MonoBehaviour , I存档相关接口
             Destroy(演示角色位置.GetChild(0).gameObject);
         }
         文本容器["角色模型"].text = data.data + "";
-        GameObject obj = Instantiate(模型选择.instanc.获取选择模型());
+        GameObject obj = Instantiate(模型选择.instance.获取选择模型());
         obj.transform.parent = 演示角色位置;
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localEulerAngles = Vector3.zero;
