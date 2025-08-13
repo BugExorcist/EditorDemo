@@ -191,7 +191,7 @@ public class 存档控制器
             存档文件_ = new 存档文件();
         }
     }
-    public static void 存档()
+    public static void 存档()// 把数据转化为json, 使用PlayerPrefs持久化保存
     {
         string temp = JsonUtility.ToJson(存档文件_);
         PlayerPrefs.SetString("savedata",temp);

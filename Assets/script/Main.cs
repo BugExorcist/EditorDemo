@@ -10,12 +10,13 @@ using UnityEngine.UI;
 
 public class Main : MonoBehaviour , 存档相关接口
 {
+    // 使用字典来存储所有的组件，为了方便使用名称动态的创建和访问
     public Dictionary<string, InputField> 文本容器;
     public Dictionary<string, Toggle> 开关容器;
     public Dictionary<string, Dropdown> 下拉容器;
     public List<角色信息> 已创建角色信息;
     public List<功能单项> 已创建功能信息;
-    List<存档相关接口> myInterfaces;
+    List<存档相关接口> myInterfaces;// 在读档的时候初始化
     public Transform 演示角色位置;
 
     public void 运行Demo()
@@ -73,11 +74,27 @@ public class Main : MonoBehaviour , 存档相关接口
         animatorController = AnimatorController.CreateAnimatorControllerAtPath("Assets/Resources/动画控制器/控制xxx.controller");
         stateMachine = animatorController.layers[0].stateMachine;
         Dictionary<string, AnimatorState> 状态字典 = new Dictionary<string, AnimatorState>();
-        状态字典.Add("ID",stateMachine.AddState("ID"));
+
         stateMachine.defaultState = 状态字典["ID"];
+
+        状态字典.Add("ID",stateMachine.AddState("ID"));
         状态字典.Add("run", stateMachine.AddState("run"));
+        状态字典.Add("Atk1", stateMachine.AddState("Atk1"));
+        状态字典.Add("Atk2", stateMachine.AddState("Atk2"));
+        状态字典.Add("Atk3", stateMachine.AddState("Atk3"));
+
         状态字典["ID"].motion = Resources.Load<AnimationClip>("动作列表/预设不可选动作/" +"ID");
         状态字典["run"].motion = Resources.Load<AnimationClip>("动作列表/预设不可选动作/" + "run");
+
+        状态字典["Atk1"].motion = Resources.Load<AnimationClip>("动作列表/技能动作/" + "Atk1");
+        状态字典["Atk1"].AddStateMachineBehaviour<anid>();
+
+        状态字典["Atk2"].motion = Resources.Load<AnimationClip>("动作列表/技能动作/" + "Atk2");
+        状态字典["Atk2"].AddStateMachineBehaviour<anid>();
+
+        状态字典["Atk3"].motion = Resources.Load<AnimationClip>("动作列表/技能动作/" + "Atk3");
+        状态字典["Atk3"].AddStateMachineBehaviour<anid>();
+
         animatorController.AddParameter("是否循环",AnimatorControllerParameterType.Bool);
         animatorController.AddParameter("循环时间", AnimatorControllerParameterType.Float);
         animatorController.AddParameter("当前动作", AnimatorControllerParameterType.Int);
@@ -88,16 +105,7 @@ public class Main : MonoBehaviour , 存档相关接口
         trans = 状态字典["run"].AddTransition(状态字典["ID"], false);
         trans.AddCondition(AnimatorConditionMode.IfNot, 1, "移动");
 
-        状态字典.Add("Atk1", stateMachine.AddState("Atk1"));
-        状态字典["Atk1"].motion = Resources.Load<AnimationClip>("动作列表/技能动作/" + "Atk1");
-        状态字典["Atk1"].AddStateMachineBehaviour<anid>();
-        状态字典.Add("Atk2", stateMachine.AddState("Atk2"));
-        状态字典["Atk2"].motion = Resources.Load<AnimationClip>("动作列表/技能动作/" + "Atk2");
-        状态字典["Atk2"].AddStateMachineBehaviour<anid>();
-        状态字典.Add("Atk3", stateMachine.AddState("Atk3"));
-        状态字典["Atk3"].motion = Resources.Load<AnimationClip>("动作列表/技能动作/" + "Atk3");
-        状态字典["Atk3"].AddStateMachineBehaviour<anid>();
-
+       
         if (已创建角色信息[0].普攻动作1 !="" && 已创建角色信息[0].普攻动作1 != null)
         {
             状态字典.Add("普攻Atk1", stateMachine.AddState("普攻Atk1"));
@@ -132,17 +140,21 @@ public class Main : MonoBehaviour , 存档相关接口
         return true;
 
     }
-    RuntimeAnimatorController run;
+
+    RuntimeAnimatorController run;// 原动画控制器
     public Animator ani;
     public void 普攻绑定事件( 角色信息 角色信息_)
-    {
+    {   
+        // 在 Unity 的动画系统中，不能直接修改原始 Animator Controller 的资源文件（.controller 文件）
+        // 所以，我们只能创建一个副本，对副本进行修改，再把副本赋给 Animator
+
         run = ani.runtimeAnimatorController;
-        var ride = new AnimatorOverrideController(run);
-        ride.runtimeAnimatorController = ani.runtimeAnimatorController;
-        var _event = new AnimationEvent();
+        var ride = new AnimatorOverrideController(run);// 创建一个副本
+        //ride.runtimeAnimatorController = ani.runtimeAnimatorController;
+        var _event = new AnimationEvent();// 添加动画事件
         _event.functionName = "打开攻击碰撞体";
         float temp;
-        float.TryParse(角色信息_.普攻伤害时间1 , out temp);
+        float.TryParse(角色信息_.普攻伤害时间1 , out temp);// 根据伤害的时机设置事件触发的时间
         _event.time = temp;
         if (角色信息_.普攻动作1 !="")
         {
@@ -362,7 +374,7 @@ public class Main : MonoBehaviour , 存档相关接口
         Time.timeScale = 1;
         读档();
         绑定可控元素(transform);
-        绑定();
+        设置输入文本占位符内容();
         if (已创建角色信息!=null && 已创建角色信息.Count >0)
         {
             执行填充(已创建角色信息[0]);
@@ -386,7 +398,7 @@ public class Main : MonoBehaviour , 存档相关接口
         是否存档 = false; 
     }
     bool 是否存档 = true;
-    public GameObject[] 功能列表;
+    public GameObject[] 功能列表;// 需要在编辑器中手动添加功能
 
     public void 打开功能面板(GameObject obj)
     {
@@ -394,7 +406,7 @@ public class Main : MonoBehaviour , 存档相关接口
         {
             功能列表[i].SetActive(false);
         }
-        obj.transform.SetAsLastSibling();
+        obj.transform.SetAsLastSibling();// 置为最上层
         obj.SetActive(true);
     }
     public void 打开二级面板(GameObject obj)
@@ -422,7 +434,7 @@ public class Main : MonoBehaviour , 存档相关接口
         }
         return interfaces;
     }
-    void 绑定可控元素(Transform transform_)
+    void 绑定可控元素(Transform transform_)// 递归绑定所有的UI元素到字典中
     {
         for (int i = 0; i < transform_.childCount;i++)
         {
@@ -435,7 +447,7 @@ public class Main : MonoBehaviour , 存档相关接口
         }
 
     }
-    void 执行绑定(Transform child)
+    void 执行绑定(Transform child)// 根据在UI上的tag,把组件绑定到字典中
     {
         if (child.CompareTag("UI文本"))
         {
@@ -463,8 +475,10 @@ public class Main : MonoBehaviour , 存档相关接口
             下拉容器.Add(child.name, child.GetComponent<Dropdown>());
         }
     }
-    void 绑定()
-    {
+    void 设置输入文本占位符内容()
+    {   // 把所有Tag为“占位符”的GameObject的 Text 组件文本设置为父物体的名称，然后去掉Tag
+        // 这个是为了优化用户体验，也为了减少工作量，父物体的名称为这个组件应该填入的内容
+        // 例：如果父物体叫"技能cd" 那么运行的时候，这个输入框的提示占位符就会显示浅灰色的"技能cd"
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Placeholder");
         foreach (var temp in gameObjects)
         {
@@ -472,7 +486,7 @@ public class Main : MonoBehaviour , 存档相关接口
             temp.tag = "Untagged";
         }
     }
-    void 执行填充( System.Object data)
+    void 执行填充( System.Object data)// 把从存档中读取的参数填充到UGUI的=组件中
     {
         if (data == null)
         {
@@ -513,10 +527,8 @@ public class Main : MonoBehaviour , 存档相关接口
         }
     }
 
-
-    // Start is called before the first frame update
     void Start()
-    {
+    {// 角色模型不为空就实例化角色模型
         if (文本容器["角色模型"].text !=null && 文本容器["角色模型"].text != "")
         {
             GameObject obj = Instantiate(Resources.Load<GameObject>("角色模型/" + 文本容器["角色模型"].text));
@@ -531,7 +543,7 @@ public class Main : MonoBehaviour , 存档相关接口
     {
         obj.SetActive(false);
     }
-    public Dropdown 功能选择;
+    public Dropdown 功能选择;// 本Demo中没有使用 功能选择 和 新增功能()
     public void 新增功能()
     {
         switch(功能选择.value){
