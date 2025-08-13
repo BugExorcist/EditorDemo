@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class 功能编辑 : MonoBehaviour , I存档相关接口
+public class 功能编辑 : MonoBehaviour , 存档相关接口
 {
     public Transform content;
     public List<功能单项> 功能单项列表 = new List<功能单项>();
@@ -176,7 +176,7 @@ public class 功能编辑 : MonoBehaviour , I存档相关接口
             data.类型 = 选择的技能模板;
             data.描述 = T描述.text;
             switch (选择的技能模板)
-            {// 选0、1、3的逻辑都一样
+            {
                 case 0:
                     //data.数值组 = new float[数值最大长度];
                     //for (int i = 0; i < 数值最大长度; i ++)

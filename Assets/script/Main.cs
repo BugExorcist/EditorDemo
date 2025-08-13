@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -8,321 +7,323 @@ using UnityEditor.Animations;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
-using static UnityEditor.Experimental.GraphView.GraphView;
 
-public class Main : MonoBehaviour , Iå­˜æ¡£ç›¸å…³æ¥å£
+public class Main : MonoBehaviour , ´æµµÏà¹Ø½Ó¿Ú
 {
-    public Dictionary<string, InputField> æ–‡æœ¬å®¹å™¨;
-    public Dictionary<string, Toggle> å¼€å…³å®¹å™¨;
-    public Dictionary<string, Dropdown> ä¸‹æ‹‰å®¹å™¨;
-    public List<è§’è‰²ä¿¡æ¯> å·²åˆ›å»ºè§’è‰²ä¿¡æ¯;
-    public List<åŠŸèƒ½å•é¡¹> å·²åˆ›å»ºåŠŸèƒ½ä¿¡æ¯;
-    List<Iå­˜æ¡£ç›¸å…³æ¥å£> myInterfaces;
-    public Transform æ¼”ç¤ºè§’è‰²ä½ç½®;
+    public Dictionary<string, InputField> ÎÄ±¾ÈİÆ÷;
+    public Dictionary<string, Toggle> ¿ª¹ØÈİÆ÷;
+    public Dictionary<string, Dropdown> ÏÂÀ­ÈİÆ÷;
+    public List<½ÇÉ«ĞÅÏ¢> ÒÑ´´½¨½ÇÉ«ĞÅÏ¢;
+    public List<¹¦ÄÜµ¥Ïî> ÒÑ´´½¨¹¦ÄÜĞÅÏ¢;
+    List<´æµµÏà¹Ø½Ó¿Ú> myInterfaces;
+    public Transform ÑİÊ¾½ÇÉ«Î»ÖÃ;
 
-    public void è¿è¡ŒDemo()
+    public void ÔËĞĞDemo()
     {
         SceneManager.LoadScene(1);
     }
-    public void è¯»å–å­˜æ¡£åˆå§‹åŒ–æ•°æ®()
+    public void ¶ÁÈ¡´æµµ³õÊ¼»¯Êı¾İ()
     {
-        å·²åˆ›å»ºè§’è‰²ä¿¡æ¯ = å­˜æ¡£æ§åˆ¶å™¨.å­˜æ¡£æ–‡ä»¶_.å·²åˆ›å»ºè§’è‰²ä¿¡æ¯;
-        å·²åˆ›å»ºåŠŸèƒ½ä¿¡æ¯ = å­˜æ¡£æ§åˆ¶å™¨.å­˜æ¡£æ–‡ä»¶_.å·²åˆ›å»ºåŠŸèƒ½å•é¡¹ä¿¡æ¯;
-        if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯.Count == 0)
+        ÒÑ´´½¨½ÇÉ«ĞÅÏ¢ = ´æµµ¿ØÖÆÆ÷.´æµµÎÄ¼ş_.ÒÑ´´½¨½ÇÉ«ĞÅÏ¢;
+        ÒÑ´´½¨¹¦ÄÜĞÅÏ¢ = ´æµµ¿ØÖÆÆ÷.´æµµÎÄ¼ş_.ÒÑ´´½¨¹¦ÄÜµ¥ÏîĞÅÏ¢;
+        if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢.Count == 0)
         {
-            è§’è‰²ä¿¡æ¯ tmp = new è§’è‰²ä¿¡æ¯();
-            tmp.è§’è‰²ID_ = "";
-            å·²åˆ›å»ºè§’è‰²ä¿¡æ¯.Add(tmp);
+            ½ÇÉ«ĞÅÏ¢ temp = new ½ÇÉ«ĞÅÏ¢();temp.½ÇÉ«ID_ = "";
+            ÒÑ´´½¨½ÇÉ«ĞÅÏ¢.Add(temp);
         }
     }
-
     public AnimatorStateMachine stateMachine;
     public AnimatorController animatorController;
 
-    public bool æ•°æ®å†™å…¥å­˜æ¡£æ–‡ä»¶()
+    public bool Êı¾İĞ´Èë´æµµÎÄ¼ş()
     {
-        if (æ–‡æœ¬å®¹å™¨["è¿æ®µæ—¶é—´"].text == "" || æ–‡æœ¬å®¹å™¨["è¿æ®µæ—¶é—´"].text == null)
+        //if (ÎÄ±¾ÈİÆ÷["Á¬¶ÎÊ±¼ä"].text =="" || ÎÄ±¾ÈİÆ÷["Á¬¶ÎÊ±¼ä"].text==null )
+        //{
+        //    ÏµÍ³ÌáÊ¾C.instance.´ò¿ª("Á¬¶ÎÊ±¼ä±ØĞë´óÓÚ0");
+        //    return false;
+        //}
+        foreach (var temp in ÎÄ±¾ÈİÆ÷)
         {
-            return false;
-        }
-        foreach(var item in æ–‡æœ¬å®¹å™¨)
-        {
-            PropertyInfo info = å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].GetType().GetProperty(item.Key);
-            if (info != null)
+            PropertyInfo p = ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].GetType().GetProperty(temp.Key);
+            if (p !=null)
             {
-                info.SetValue(å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0], item.Value.text);
+                p.SetValue(ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0], temp.Value.text);
             }
         }
-        foreach (var item in å¼€å…³å®¹å™¨)
+        foreach (var temp in ¿ª¹ØÈİÆ÷)
         {
-            PropertyInfo info = å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].GetType().GetProperty(item.Key);
-            if (info != null)
+            PropertyInfo p = ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].GetType().GetProperty(temp.Key);
+            if (p != null)
             {
-                info.SetValue(å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0], item.Value.isOn ? "" : "0");
+                p.SetValue(ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0], temp.Value.isOn?"1":"0");
             }
         }
-        foreach (var item in ä¸‹æ‹‰å®¹å™¨)
+        foreach (var temp in ÏÂÀ­ÈİÆ÷)
         {
-            PropertyInfo info = å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].GetType().GetProperty(item.Key);
-            if (info != null)
+            PropertyInfo p = ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].GetType().GetProperty(temp.Key);
+            if (p != null)
             {
-                info.SetValue(å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0], item.Value.value);
+                p.SetValue(ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0], temp.Value.value+"");
             }
         }
-        å­˜æ¡£æ§åˆ¶å™¨.å­˜æ¡£æ–‡ä»¶_.å·²åˆ›å»ºè§’è‰²ä¿¡æ¯ = å·²åˆ›å»ºè§’è‰²ä¿¡æ¯;
-        å­˜æ¡£æ§åˆ¶å™¨.å­˜æ¡£æ–‡ä»¶_.å·²åˆ›å»ºåŠŸèƒ½å•é¡¹ä¿¡æ¯ = å·²åˆ›å»ºåŠŸèƒ½ä¿¡æ¯;
+        ´æµµ¿ØÖÆÆ÷.´æµµÎÄ¼ş_.ÒÑ´´½¨½ÇÉ«ĞÅÏ¢ = ÒÑ´´½¨½ÇÉ«ĞÅÏ¢;
+        ´æµµ¿ØÖÆÆ÷.´æµµÎÄ¼ş_.ÒÑ´´½¨¹¦ÄÜµ¥ÏîĞÅÏ¢ = ÒÑ´´½¨¹¦ÄÜĞÅÏ¢;
 
-        File.Delete("Assets/Resources/åŠ¨ç”»æ§åˆ¶å™¨/æ§åˆ¶xxx.controller");
-        animatorController = AnimatorController.CreateAnimatorControllerAtPath("Assets/Resources/åŠ¨ç”»æ§åˆ¶å™¨/æ§åˆ¶xxx.controller");
+        File.Delete("Assets/Resources/¶¯»­¿ØÖÆÆ÷/¿ØÖÆxxx.controller");
+        animatorController = AnimatorController.CreateAnimatorControllerAtPath("Assets/Resources/¶¯»­¿ØÖÆÆ÷/¿ØÖÆxxx.controller");
         stateMachine = animatorController.layers[0].stateMachine;
+        Dictionary<string, AnimatorState> ×´Ì¬×Öµä = new Dictionary<string, AnimatorState>();
+        ×´Ì¬×Öµä.Add("ID",stateMachine.AddState("ID"));
+        stateMachine.defaultState = ×´Ì¬×Öµä["ID"];
+        ×´Ì¬×Öµä.Add("run", stateMachine.AddState("run"));
+        ×´Ì¬×Öµä["ID"].motion = Resources.Load<AnimationClip>("¶¯×÷ÁĞ±í/Ô¤Éè²»¿ÉÑ¡¶¯×÷/" +"ID");
+        ×´Ì¬×Öµä["run"].motion = Resources.Load<AnimationClip>("¶¯×÷ÁĞ±í/Ô¤Éè²»¿ÉÑ¡¶¯×÷/" + "run");
+        animatorController.AddParameter("ÊÇ·ñÑ­»·",AnimatorControllerParameterType.Bool);
+        animatorController.AddParameter("Ñ­»·Ê±¼ä", AnimatorControllerParameterType.Float);
+        animatorController.AddParameter("µ±Ç°¶¯×÷", AnimatorControllerParameterType.Int);
+        animatorController.AddParameter("ÒÆ¶¯", AnimatorControllerParameterType.Bool);
 
-        Dictionary<string, AnimatorState> çŠ¶æ€å­—å…¸ = new Dictionary<string, AnimatorState>();
-        çŠ¶æ€å­—å…¸.Add("ID", stateMachine.AddState("ID"));
-        çŠ¶æ€å­—å…¸.Add("run", stateMachine.AddState("run"));
-        çŠ¶æ€å­—å…¸.Add("Akt1", stateMachine.AddState("Akt1"));
-        çŠ¶æ€å­—å…¸.Add("Akt2", stateMachine.AddState("Akt2"));
-        çŠ¶æ€å­—å…¸.Add("Akt3", stateMachine.AddState("Akt3"));
+        AnimatorStateTransition trans = ×´Ì¬×Öµä["ID"].AddTransition(×´Ì¬×Öµä["run"],false);
+        trans.AddCondition(AnimatorConditionMode.If,1,"ÒÆ¶¯");
+        trans = ×´Ì¬×Öµä["run"].AddTransition(×´Ì¬×Öµä["ID"], false);
+        trans.AddCondition(AnimatorConditionMode.IfNot, 1, "ÒÆ¶¯");
 
-        çŠ¶æ€å­—å…¸["ID"].motion = Resources.Load<AnimationClip>("åŠ¨ä½œåˆ—è¡¨/é¢„è®¾ä¸å¯é€‰åŠ¨ä½œ/ID");
-        çŠ¶æ€å­—å…¸["run"].motion = Resources.Load<AnimationClip>("åŠ¨ä½œåˆ—è¡¨/é¢„è®¾ä¸å¯é€‰åŠ¨ä½œ/run");
-        çŠ¶æ€å­—å…¸["Akt1"].motion = Resources.Load<AnimationClip>("åŠ¨ä½œåˆ—è¡¨/æŠ€èƒ½åŠ¨ä½œ/Atk1");
-        //çŠ¶æ€å­—å…¸["Akt1"].AddStateMachineBehaviour<>
-        çŠ¶æ€å­—å…¸["Akt2"].motion = Resources.Load<AnimationClip>("åŠ¨ä½œåˆ—è¡¨/æŠ€èƒ½åŠ¨ä½œ/Atk2");
-        //çŠ¶æ€å­—å…¸["Akt2"].AddStateMachineBehaviour<>
-        çŠ¶æ€å­—å…¸["Akt3"].motion = Resources.Load<AnimationClip>("åŠ¨ä½œåˆ—è¡¨/æŠ€èƒ½åŠ¨ä½œ/Atk3");
-        //çŠ¶æ€å­—å…¸["Akt3"].AddStateMachineBehaviour<>
-        if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ1 != "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ1 != null)
+        ×´Ì¬×Öµä.Add("Atk1", stateMachine.AddState("Atk1"));
+        ×´Ì¬×Öµä["Atk1"].motion = Resources.Load<AnimationClip>("¶¯×÷ÁĞ±í/¼¼ÄÜ¶¯×÷/" + "Atk1");
+        ×´Ì¬×Öµä["Atk1"].AddStateMachineBehaviour<anid>();
+        ×´Ì¬×Öµä.Add("Atk2", stateMachine.AddState("Atk2"));
+        ×´Ì¬×Öµä["Atk2"].motion = Resources.Load<AnimationClip>("¶¯×÷ÁĞ±í/¼¼ÄÜ¶¯×÷/" + "Atk2");
+        ×´Ì¬×Öµä["Atk2"].AddStateMachineBehaviour<anid>();
+        ×´Ì¬×Öµä.Add("Atk3", stateMachine.AddState("Atk3"));
+        ×´Ì¬×Öµä["Atk3"].motion = Resources.Load<AnimationClip>("¶¯×÷ÁĞ±í/¼¼ÄÜ¶¯×÷/" + "Atk3");
+        ×´Ì¬×Öµä["Atk3"].AddStateMachineBehaviour<anid>();
+
+        if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷1 !="" && ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷1 != null)
         {
-            çŠ¶æ€å­—å…¸.Add("æ™®æ”»Atk1", stateMachine.AddState("æ™®æ”»Atk1"));
-            çŠ¶æ€å­—å…¸["æ™®æ”»Atk1"].motion = Resources.Load<AnimationClip>("åŠ¨ä½œåˆ—è¡¨/æŠ€èƒ½åŠ¨ä½œ/" + å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ1);
-            çŠ¶æ€å­—å…¸["æ™®æ”»Atk1"].AddExitTransition(true);// åŠ¨ä½œç»“æŸè‡ªåŠ¨é€€å‡º
+            ×´Ì¬×Öµä.Add("ÆÕ¹¥Atk1", stateMachine.AddState("ÆÕ¹¥Atk1"));
+            ×´Ì¬×Öµä["ÆÕ¹¥Atk1"].motion = Resources.Load<AnimationClip>("¶¯×÷ÁĞ±í/ÆÕ¹¥¶¯×÷/" + ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷1);
+            ×´Ì¬×Öµä["ÆÕ¹¥Atk1"].AddExitTransition(true);
+             
         }
-        if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ2 != "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ2 != null)
+        if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷2 != "" && ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷2 != null)
         {
-            çŠ¶æ€å­—å…¸.Add("æ™®æ”»Atk2", stateMachine.AddState("æ™®æ”»Atk2"));
-            çŠ¶æ€å­—å…¸["æ™®æ”»Atk2"].motion = Resources.Load<AnimationClip>("åŠ¨ä½œåˆ—è¡¨/æŠ€èƒ½åŠ¨ä½œ/" + å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ2);
-            çŠ¶æ€å­—å…¸["æ™®æ”»Atk2"].AddExitTransition(true);// åŠ¨ä½œç»“æŸè‡ªåŠ¨é€€å‡º
+            ×´Ì¬×Öµä.Add("ÆÕ¹¥Atk2", stateMachine.AddState("ÆÕ¹¥Atk2"));
+            ×´Ì¬×Öµä["ÆÕ¹¥Atk2"].motion = Resources.Load<AnimationClip>("¶¯×÷ÁĞ±í/ÆÕ¹¥¶¯×÷/" + ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷2);
+            ×´Ì¬×Öµä["ÆÕ¹¥Atk2"].AddExitTransition(true);
+
         }
-        if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ3 != "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ3 != null)
+        if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷3 != "" && ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷3 != null)
         {
-            çŠ¶æ€å­—å…¸.Add("æ™®æ”»Atk3", stateMachine.AddState("æ™®æ”»Atk3"));
-            çŠ¶æ€å­—å…¸["æ™®æ”»Atk3"].motion = Resources.Load<AnimationClip>("åŠ¨ä½œåˆ—è¡¨/æŠ€èƒ½åŠ¨ä½œ/" + å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ3);
-            çŠ¶æ€å­—å…¸["æ™®æ”»Atk3"].AddExitTransition(true);// åŠ¨ä½œç»“æŸè‡ªåŠ¨é€€å‡º
+            ×´Ì¬×Öµä.Add("ÆÕ¹¥Atk3", stateMachine.AddState("ÆÕ¹¥Atk3"));
+            ×´Ì¬×Öµä["ÆÕ¹¥Atk3"].motion = Resources.Load<AnimationClip>("¶¯×÷ÁĞ±í/ÆÕ¹¥¶¯×÷/" + ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷3);
+            ×´Ì¬×Öµä["ÆÕ¹¥Atk3"].AddExitTransition(true);
+
         }
-        if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ4 != "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ4 != null)
+        if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷4 != "" && ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷4 != null)
         {
-            çŠ¶æ€å­—å…¸.Add("æ™®æ”»Atk4", stateMachine.AddState("æ™®æ”»Atk4"));
-            çŠ¶æ€å­—å…¸["æ™®æ”»Atk4"].motion = Resources.Load<AnimationClip>("åŠ¨ä½œåˆ—è¡¨/æŠ€èƒ½åŠ¨ä½œ/" + å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].æ™®æ”»åŠ¨ä½œ4);
-            çŠ¶æ€å­—å…¸["æ™®æ”»Atk4"].AddExitTransition(true);// åŠ¨ä½œç»“æŸè‡ªåŠ¨é€€å‡º
+            ×´Ì¬×Öµä.Add("ÆÕ¹¥Atk4", stateMachine.AddState("ÆÕ¹¥Atk4"));
+            ×´Ì¬×Öµä["ÆÕ¹¥Atk4"].motion = Resources.Load<AnimationClip>("¶¯×÷ÁĞ±í/ÆÕ¹¥¶¯×÷/" + ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÆÕ¹¥¶¯×÷4);
+            ×´Ì¬×Öµä["ÆÕ¹¥Atk4"].AddExitTransition(true);
+
         }
+        ÆÕ¹¥°ó¶¨ÊÂ¼ş(ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0]);
 
-        stateMachine.defaultState = çŠ¶æ€å­—å…¸["ID"];
-
-        animatorController.AddParameter("æ˜¯å¦å¾ªç¯", AnimatorControllerParameterType.Bool);
-        animatorController.AddParameter("å¾ªç¯æ—¶é—´", AnimatorControllerParameterType.Float);
-        animatorController.AddParameter("å½“å‰åŠ¨ä½œ", AnimatorControllerParameterType.Int);
-        animatorController.AddParameter("ç§»åŠ¨", AnimatorControllerParameterType.Bool);
-
-        AnimatorStateTransition trans = çŠ¶æ€å­—å…¸["ID"].AddTransition(çŠ¶æ€å­—å…¸["run"], false);
-        // boolç±»å‹ä¼šç›´æ¥å¿½ç•¥ç¬¬äºŒä¸ªå‚æ•°ï¼Œæ‰€ä»¥è¿™é‡Œç¬¬äºŒä¸ªå‚æ•°ç”¨1æˆ–è€…0éƒ½ä¸€æ ·ï¼Œåˆ¤æ–­ "ç§»åŠ¨" æ˜¯å¦ä¸ºtrue
-        trans.AddCondition(AnimatorConditionMode.If, 1, "ç§»åŠ¨");
-        trans = çŠ¶æ€å­—å…¸["run"].AddTransition(çŠ¶æ€å­—å…¸["ID"], false);
-        trans.AddCondition(AnimatorConditionMode.IfNot, 1, "ç§»åŠ¨");
-
-        æ™®æ”»ç»‘å®šäº‹ä»¶(å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0]);
 
         return true;
+
     }
-
     RuntimeAnimatorController run;
-    public Animator ani;// åœ¨ é€‰æ¨¡å‹() æ—¶è·å–
-
-    private void æ™®æ”»ç»‘å®šäº‹ä»¶(è§’è‰²ä¿¡æ¯ è§’è‰²ä¿¡æ¯)
+    public Animator ani;
+    public void ÆÕ¹¥°ó¶¨ÊÂ¼ş( ½ÇÉ«ĞÅÏ¢ ½ÇÉ«ĞÅÏ¢_)
     {
         run = ani.runtimeAnimatorController;
         var ride = new AnimatorOverrideController();
         ride.runtimeAnimatorController = ani.runtimeAnimatorController;
-        var aniEvent = new AnimationEvent();
-        aniEvent.functionName = "æ‰“å¼€æ”»å‡»ç¢°æ’ä½“";
-        float tmp;// å¸§äº‹ä»¶è§¦å‘çš„ç™¾åˆ†æ¯”
-        float.TryParse(è§’è‰²ä¿¡æ¯.æ™®æ”»ä¼¤å®³æ—¶é—´1 ,out tmp);
-        aniEvent.time = tmp;
-        if (ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ1].events.Length == 0)
+        var _event = new AnimationEvent();
+        _event.functionName = "´ò¿ª¹¥»÷Åö×²Ìå";
+        float temp;
+        float.TryParse(½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥ÉËº¦Ê±¼ä1 , out temp);
+        _event.time = temp;
+        if (½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷1 !="")
         {
-            ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ1].AddEvent(aniEvent);
+            if (ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷1].events.Length == 0)
+            {
+                ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷1].AddEvent(_event);
+            }
+            else
+            {
+                ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷1].events[0] = _event;
+            }
         }
-        else
+       
+        float.TryParse(½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥ÉËº¦Ê±¼ä2, out temp);
+        _event.time = temp;
+        if (½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷2 != "")
         {
-            ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ1].events[0] = aniEvent;
+            if (ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷2].events.Length == 0)
+            {
+                ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷2].AddEvent(_event);
+            }
+            else
+            {
+                ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷2].events[0] = _event;
+            }
         }
-
-        float.TryParse(è§’è‰²ä¿¡æ¯.æ™®æ”»ä¼¤å®³æ—¶é—´2, out tmp);
-        aniEvent.time = tmp;
-        if (ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ2].events.Length == 0)
+        float.TryParse(½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥ÉËº¦Ê±¼ä3, out temp);
+        _event.time = temp;
+        if (½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷3 != "")
         {
-            ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ2].AddEvent(aniEvent);
+            if (ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷3].events.Length == 0)
+            {
+                ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷3].AddEvent(_event);
+            }
+            else
+            {
+                ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷3].events[0] = _event;
+            }
         }
-        else
+        float.TryParse(½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥ÉËº¦Ê±¼ä4, out temp);
+        _event.time = temp;
+        if (½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷4 != "")
         {
-            ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ2].events[0] = aniEvent;
+            if (ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷4].events.Length == 0)
+            {
+                ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷4].AddEvent(_event);
+            }
+            else
+            {
+                ride[½ÇÉ«ĞÅÏ¢_.ÆÕ¹¥¶¯×÷4].events[0] = _event;
+            }
         }
-
-        float.TryParse(è§’è‰²ä¿¡æ¯.æ™®æ”»ä¼¤å®³æ—¶é—´3, out tmp);
-        aniEvent.time = tmp;
-        if (ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ3].events.Length == 0)
-        {
-            ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ3].AddEvent(aniEvent);
-        }
-        else
-        {
-            ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ3].events[0] = aniEvent;
-        }
-
-        float.TryParse(è§’è‰²ä¿¡æ¯.æ™®æ”»ä¼¤å®³æ—¶é—´4, out tmp);
-        aniEvent.time = tmp;
-        if (ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ4].events.Length == 0)
-        {
-            ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ4].AddEvent(aniEvent);
-        }
-        else
-        {
-            ride[è§’è‰²ä¿¡æ¯.æ™®æ”»åŠ¨ä½œ4].events[0] = aniEvent;
-        }
-
         ani.Rebind();
-        ani.runtimeAnimatorController = ride;
+        ani.runtimeAnimatorController = ride; 
     }
 
     private void OnEnable()
     {
-        NotificationCenter.DefaultCenter.AddObserver(this, "é€‰æ¨¡å‹");
-        NotificationCenter.DefaultCenter.AddObserver(this, "é€‰åŠ¨ä½œ");
-        NotificationCenter.DefaultCenter.AddObserver(this, "é€‰ç‰¹æ•ˆ");
+        NotificationCenter.DefaultCenter.AddObserver(this, "Ñ¡Ä£ĞÍ");
+        NotificationCenter.DefaultCenter.AddObserver(this, "Ñ¡¶¯×÷");
+        NotificationCenter.DefaultCenter.AddObserver(this, "Ñ¡ÌØĞ§");
     }
-
     private void OnDisable()
     {
-        NotificationCenter.DefaultCenter.RemoveObserver(this, "é€‰æ¨¡å‹");
-        NotificationCenter.DefaultCenter.RemoveObserver(this, "é€‰åŠ¨ä½œ");
-        NotificationCenter.DefaultCenter.RemoveObserver(this, "é€‰ç‰¹æ•ˆ");
+        NotificationCenter.DefaultCenter.RemoveObserver(this, "Ñ¡Ä£ĞÍ");
+        NotificationCenter.DefaultCenter.RemoveObserver(this, "Ñ¡¶¯×÷");
+        NotificationCenter.DefaultCenter.RemoveObserver(this, "Ñ¡ÌØĞ§");
     }
-
-    void é€‰æ¨¡å‹(Notification data)
+    void Ñ¡Ä£ĞÍ(Notification data)
     {
-        if (æ¼”ç¤ºè§’è‰²ä½ç½®.childCount > 0)
+        if (ÑİÊ¾½ÇÉ«Î»ÖÃ.childCount > 0)
         {
-            Destroy(æ¼”ç¤ºè§’è‰²ä½ç½®.GetChild(0).gameObject);
+            Destroy(ÑİÊ¾½ÇÉ«Î»ÖÃ.GetChild(0).gameObject);
         }
-        æ–‡æœ¬å®¹å™¨["è§’è‰²æ¨¡å‹"].text = data.data + "";
-        GameObject obj = Instantiate(æ¨¡å‹é€‰æ‹©.instance.è·å–é€‰æ‹©æ¨¡å‹());
-        obj.transform.parent = æ¼”ç¤ºè§’è‰²ä½ç½®;
+        ÎÄ±¾ÈİÆ÷["½ÇÉ«Ä£ĞÍ"].text = data.data + "";
+        GameObject obj =   Instantiate(Ä£ĞÍÑ¡Ôñ.instance.»ñÈ¡Ñ¡ÔñÄ£ĞÍ());
+        obj.transform.parent = ÑİÊ¾½ÇÉ«Î»ÖÃ;
         obj.transform.localPosition = Vector3.zero;
         obj.transform.localEulerAngles = Vector3.zero;
         ani = obj.GetComponent<Animator>();
     }
-    public void é¢„è§ˆæŠ€èƒ½åŠ¨ç”»()
+    public void Ô¤ÀÀ¼¼ÄÜ¶¯»­()
     {
         if (ani == null)
         {
             return;
         }
-        è·å–åŠ¨ç”»å¹¶æ’­æ”¾(1);
-    }
-
-    private bool è·å–åŠ¨ç”»å¹¶æ’­æ”¾(int ç¼–å·)
+        »ñÈ¡¶¯»­²¢²¥·Å(1);
+    } 
+    public bool »ñÈ¡¶¯»­²¢²¥·Å(int ±àºÅ)
     {
-        string ID = "æ˜¯å¦å¾ªç¯" + ç¼–å·;
-        string å¾ªç¯æ—¶é—´ = "å¾ªç¯æ—¶é—´" + ç¼–å·;
-        string åŠ¨ä½œ = "åŠ¨ä½œ" + ç¼–å·;
-        if (æ–‡æœ¬å®¹å™¨[åŠ¨ä½œ].text == "" || æ–‡æœ¬å®¹å™¨[åŠ¨ä½œ].text == null)
+        string ID = "ÊÇ·ñÑ­»·" + ±àºÅ;
+        string Ñ­»·Ê±¼ä = "Ñ­»·Ê±¼ä" + ±àºÅ;
+        string ¶¯×÷ = "¶¯×÷" + ±àºÅ;
+        if (ÎÄ±¾ÈİÆ÷[¶¯×÷].text == "" || ÎÄ±¾ÈİÆ÷[¶¯×÷].text == null)
         {
             return false;
         }
-        if (å¼€å…³å®¹å™¨[ID].isOn)
+        if (¿ª¹ØÈİÆ÷[ID].isOn)
         {
-            ani.SetBool("æ˜¯å¦å¾ªç¯", true);
+            ani.SetBool("ÊÇ·ñÑ­»·", true);
         }
-        if (æ–‡æœ¬å®¹å™¨[å¾ªç¯æ—¶é—´].text != "" && æ–‡æœ¬å®¹å™¨[å¾ªç¯æ—¶é—´].text != null)
+        if (ÎÄ±¾ÈİÆ÷[Ñ­»·Ê±¼ä].text != "" && ÎÄ±¾ÈİÆ÷[Ñ­»·Ê±¼ä].text != null)
         {
-            ani.SetFloat("å¾ªç¯æ—¶é—´", float.Parse(æ–‡æœ¬å®¹å™¨[å¾ªç¯æ—¶é—´].text));
+            ani.SetFloat("Ñ­»·Ê±¼ä", float.Parse(ÎÄ±¾ÈİÆ÷[Ñ­»·Ê±¼ä].text));
         }
-        ani.SetInteger("å½“å‰åŠ¨ä½œ", ç¼–å·);
-        if (æ–‡æœ¬å®¹å™¨[åŠ¨ä½œ].text != "" && æ–‡æœ¬å®¹å™¨[åŠ¨ä½œ].text != null)
+        ani.SetInteger("µ±Ç°¶¯×÷" , ±àºÅ);
+        if (ÎÄ±¾ÈİÆ÷[¶¯×÷].text != "" && ÎÄ±¾ÈİÆ÷[¶¯×÷].text != null)
         {
-            ani.Play(æ–‡æœ¬å®¹å™¨[åŠ¨ä½œ].text, 0);
+            ani.Play(ÎÄ±¾ÈİÆ÷[¶¯×÷].text, 0);
         }
         return true;
     }
-    public bool è·å–ç‰¹æ•ˆå¹¶æ’­æ”¾(int ç¼–å·)
+    public bool »ñÈ¡ÌØĞ§²¢²¥·Å(int ±àºÅ)
     {
-        if (ç¼–å· == 1)
+        if (±àºÅ == 1)
         {
-            if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].åŠ¨ä½œ1 == "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].åŠ¨ä½œ1 == null)
+            if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].¶¯×÷1 == "" || ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].¶¯×÷1 ==null)
             {
                 return false;
             }
         }
-        else if (ç¼–å· == 2)
+       else if (±àºÅ == 2)
         {
-            if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].åŠ¨ä½œ2 == "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].åŠ¨ä½œ2 == null)
+            if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].¶¯×÷2 == "" || ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].¶¯×÷2 == null)
             {
                 return false;
             }
         }
-        else if (ç¼–å· == 3)
+        else if (±àºÅ == 3)
         {
-            if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].åŠ¨ä½œ3 == "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].åŠ¨ä½œ3 == null)
+            if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].¶¯×÷3 == "" || ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].¶¯×÷3 == null)
             {
                 return false;
             }
         }
-        switch (ç¼–å·)
+        switch (±àºÅ)
         {
             case 1:
-                if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆ1 != "" && å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆ1 != null)
+                if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§1 != "" && ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§1 != null)
                 {
-                    Instantiate(Resources.Load<GameObject>("ç‰¹æ•ˆ/" + å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆ1), PlayerC.instance.transform);
+                    Instantiate(Resources.Load<GameObject>("ÌØĞ§/" + ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§1),PlayerC.instance.transform) ;
                 }
                 break;
             case 2:
-                if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆ2 != "" && å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆ2 != null)
+                if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§2 != "" && ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§2 != null)
                 {
-                    Instantiate(Resources.Load<GameObject>("ç‰¹æ•ˆ/" + å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆ2), PlayerC.instance.transform);
+                    Instantiate(Resources.Load<GameObject>("ÌØĞ§/" + ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§2), PlayerC.instance.transform);
                 }
                 break;
             case 3:
-                if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆ3 != "" && å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆ3 != null)
+                if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§3 != "" && ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§3 != null)
                 {
-                    Instantiate(Resources.Load<GameObject>("ç‰¹æ•ˆ/" + å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆ3), PlayerC.instance.transform);
+                    Instantiate(Resources.Load<GameObject>("ÌØĞ§/" + ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§3), PlayerC.instance.transform);
                 }
                 break;
         }
         return true;
     }
-
-    public int æ ¹æ®ç¼–å·è·å–æ—¶æœº(int ç¼–å·)
+    public int ¸ù¾İ±àºÅ»ñÈ¡Ê±»ú(int ±àºÅ)
     {
-        switch (ç¼–å·)
+        switch (±àºÅ)
         {
             case 1:
-                if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆäº§ç”Ÿæ—¶æœº1_ == "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆäº§ç”Ÿæ—¶æœº1_ == null)
+                if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§²úÉúÊ±»ú1_ == "" || ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§²úÉúÊ±»ú1_ == null)
                 {
                     return -1;
                 }
-                if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆäº§ç”Ÿæ—¶æœº1_ == "0")
+                if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§²úÉúÊ±»ú1_ == "0")
                 {
                     return 0;
-                }
-                else
+                }else
                 {
                     return 1;
-                }
+                } 
             case 2:
-                if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆäº§ç”Ÿæ—¶æœº2_ == "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆäº§ç”Ÿæ—¶æœº2_ == null)
+                if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§²úÉúÊ±»ú2_ == "" || ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§²úÉúÊ±»ú2_ == null)
                 {
                     return -1;
                 }
-                if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆäº§ç”Ÿæ—¶æœº2_ == "0")
+                if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§²úÉúÊ±»ú2_ == "0")
                 {
                     return 0;
                 }
@@ -331,11 +332,11 @@ public class Main : MonoBehaviour , Iå­˜æ¡£ç›¸å…³æ¥å£
                     return 1;
                 }
             case 3:
-                if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆäº§ç”Ÿæ—¶æœº3_ == "" || å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆäº§ç”Ÿæ—¶æœº3_ == null)
+                if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§²úÉúÊ±»ú3_ == "" || ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§²úÉúÊ±»ú3_ == null)
                 {
                     return -1;
                 }
-                if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0].ç‰¹æ•ˆäº§ç”Ÿæ—¶æœº3_ == "0")
+                if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0].ÌØĞ§²úÉúÊ±»ú3_ == "0")
                 {
                     return 0;
                 }
@@ -346,73 +347,69 @@ public class Main : MonoBehaviour , Iå­˜æ¡£ç›¸å…³æ¥å£
         }
         return -1;
     }
-
-    void é€‰åŠ¨ä½œ(Notification data)
+    void Ñ¡¶¯×÷(Notification data)
     {
         string[] ls = (data.data + "").Split("^");
-        æ–‡æœ¬å®¹å™¨[ls[0]].text = ls[1];
+        ÎÄ±¾ÈİÆ÷[ls[0]].text = ls[1];
     }
-
-    void é€‰ç‰¹æ•ˆ(Notification data)
+    void Ñ¡ÌØĞ§(Notification data)
     {
         string[] ls = (data.data + "").Split("^");
-        æ–‡æœ¬å®¹å™¨[ls[0]].text = ls[1];
+        ÎÄ±¾ÈİÆ÷[ls[0]].text = ls[1];
     }
-
     private void Awake()
     {
         Time.timeScale = 1;
-        è¯»æ¡£();
-        ç»‘å®šå¯æ§å…ƒç´ (transform);
-        ç»‘å®š();
-        if (å·²åˆ›å»ºè§’è‰²ä¿¡æ¯ != null && å·²åˆ›å»ºè§’è‰²ä¿¡æ¯.Count > 0)
+        ¶Áµµ();
+        °ó¶¨¿É¿ØÔªËØ(transform);
+        °ó¶¨();
+        if (ÒÑ´´½¨½ÇÉ«ĞÅÏ¢!=null && ÒÑ´´½¨½ÇÉ«ĞÅÏ¢.Count >0)
         {
-            æ‰§è¡Œå¡«å……(å·²åˆ›å»ºè§’è‰²ä¿¡æ¯[0]);
+            Ö´ĞĞÌî³ä(ÒÑ´´½¨½ÇÉ«ĞÅÏ¢[0]);
         }
     }
-    public void å­˜æ¡£()
+    public void ´æµµ()
     {
-        foreach (Iå­˜æ¡£ç›¸å…³æ¥å£ item in myInterfaces)
+        foreach (´æµµÏà¹Ø½Ó¿Ú item in myInterfaces)
         {
-            if (!item.æ•°æ®å†™å…¥å­˜æ¡£æ–‡ä»¶())
+            if (!item.Êı¾İĞ´Èë´æµµÎÄ¼ş())
             {
                 return;
             }
         }
-        å­˜æ¡£æ§åˆ¶å™¨.å­˜æ¡£();
-        //ç³»ç»Ÿæç¤ºC.instance.æ‰“å¼€("ä¿å­˜æˆåŠŸ");
+        ´æµµ¿ØÖÆÆ÷.´æµµ();
+        ÏµÍ³ÌáÊ¾C.instance.´ò¿ª("±£´æ³É¹¦");
     }
-    public void åˆ æ¡£()
+    public void É¾µµ()
     {
-        // å­˜æ¡£æ§åˆ¶å™¨.åˆ é™¤å­˜æ¡£();
-        æ˜¯å¦å­˜æ¡£ = false;
+        //´æµµ¿ØÖÆÆ÷.É¾³ı´æµµ();
+        ÊÇ·ñ´æµµ = false; 
     }
+    bool ÊÇ·ñ´æµµ = true;
+    public GameObject[] ¹¦ÄÜÁĞ±í;
 
-    bool æ˜¯å¦å­˜æ¡£ = true;
-    public GameObject[] åŠŸèƒ½åˆ—è¡¨;
-
-    public void æ‰“å¼€åŠŸèƒ½é¢æ¿(GameObject obj)
+    public void ´ò¿ª¹¦ÄÜÃæ°å(GameObject obj)
     {
-        for (int i = 0; i < åŠŸèƒ½åˆ—è¡¨.Length; i++)
+        for (int i = 0; i < ¹¦ÄÜÁĞ±í.Length; i ++ )
         {
-            åŠŸèƒ½åˆ—è¡¨[i].SetActive(false);
+            ¹¦ÄÜÁĞ±í[i].SetActive(false);
         }
-        obj.transform.SetAsLastSibling();// ç½®ä¸ºæœ€ä¸Šå±‚
+        obj.transform.SetAsLastSibling();
         obj.SetActive(true);
     }
-    public void æ‰“å¼€äºŒçº§é¢æ¿(GameObject obj)
+    public void ´ò¿ª¶ş¼¶Ãæ°å(GameObject obj)
     {
         obj.transform.SetAsLastSibling();
         obj.SetActive(true);
     }
 
-    void è¯»æ¡£()
+    void ¶Áµµ()
     {
-        å­˜æ¡£æ§åˆ¶å™¨.è¯»æ¡£();
-        myInterfaces = FindAllTypes<Iå­˜æ¡£ç›¸å…³æ¥å£>();
-        foreach (Iå­˜æ¡£ç›¸å…³æ¥å£ item in myInterfaces)
+        ´æµµ¿ØÖÆÆ÷.¶Áµµ();
+        myInterfaces = FindAllTypes<´æµµÏà¹Ø½Ó¿Ú>();
+        foreach (´æµµÏà¹Ø½Ó¿Ú item in myInterfaces)
         {
-            item.è¯»å–å­˜æ¡£åˆå§‹åŒ–æ•°æ®();
+            item.¶ÁÈ¡´æµµ³õÊ¼»¯Êı¾İ();
         }
     }
     public static List<T> FindAllTypes<T>()
@@ -425,50 +422,48 @@ public class Main : MonoBehaviour , Iå­˜æ¡£ç›¸å…³æ¥å£
         }
         return interfaces;
     }
-    void ç»‘å®šå¯æ§å…ƒç´ (Transform transform_)
+    void °ó¶¨¿É¿ØÔªËØ(Transform transform_)
     {
-        for (int i = 0; i < transform_.childCount; i++)
+        for (int i = 0; i < transform_.childCount;i++)
         {
             Transform child = transform_.GetChild(i);
-            æ‰§è¡Œç»‘å®š(child);
-            if (child.childCount > 0)
+            Ö´ĞĞ°ó¶¨(child);
+            if(child.childCount > 0)
             {
-                ç»‘å®šå¯æ§å…ƒç´ (child);
+                °ó¶¨¿É¿ØÔªËØ(child);
             }
         }
 
     }
-    void æ‰§è¡Œç»‘å®š(Transform child)
+    void Ö´ĞĞ°ó¶¨(Transform child)
     {
-        if (child.CompareTag("UIæ–‡æœ¬"))
+        if (child.CompareTag("UIÎÄ±¾"))
         {
-            if (æ–‡æœ¬å®¹å™¨ == null)
+            if (ÎÄ±¾ÈİÆ÷ == null)
             {
-                æ–‡æœ¬å®¹å™¨ = new Dictionary<string, InputField>();
+                ÎÄ±¾ÈİÆ÷ = new Dictionary<string, InputField>();
             }
-            if (!æ–‡æœ¬å®¹å™¨.ContainsKey(child.name))
+            if (!ÎÄ±¾ÈİÆ÷.ContainsKey(child.name))
             {
-                æ–‡æœ¬å®¹å™¨.Add(child.name, child.GetComponent<InputField>());
+                ÎÄ±¾ÈİÆ÷.Add(child.name,child.GetComponent<InputField>());
             }
+        }else if (child.CompareTag("UI¿ª¹Ø")) {
+            if (¿ª¹ØÈİÆ÷ == null)
+            {
+                ¿ª¹ØÈİÆ÷ = new Dictionary<string, Toggle>();
+            }
+            ¿ª¹ØÈİÆ÷.Add(child.name, child.GetComponent<Toggle>());
         }
-        else if (child.CompareTag("UIå¼€å…³"))
+        else if (child.CompareTag("UIÏÂÀ­"))
         {
-            if (å¼€å…³å®¹å™¨ == null)
+            if (ÏÂÀ­ÈİÆ÷ == null)
             {
-                å¼€å…³å®¹å™¨ = new Dictionary<string, Toggle>();
+                ÏÂÀ­ÈİÆ÷ = new Dictionary<string, Dropdown>();
             }
-            å¼€å…³å®¹å™¨.Add(child.name, child.GetComponent<Toggle>());
-        }
-        else if (child.CompareTag("UIä¸‹æ‹‰"))
-        {
-            if (ä¸‹æ‹‰å®¹å™¨ == null)
-            {
-                ä¸‹æ‹‰å®¹å™¨ = new Dictionary<string, Dropdown>();
-            }
-            ä¸‹æ‹‰å®¹å™¨.Add(child.name, child.GetComponent<Dropdown>());
+            ÏÂÀ­ÈİÆ÷.Add(child.name, child.GetComponent<Dropdown>());
         }
     }
-    void ç»‘å®š()
+    void °ó¶¨()
     {
         GameObject[] gameObjects = GameObject.FindGameObjectsWithTag("Placeholder");
         foreach (var temp in gameObjects)
@@ -477,7 +472,7 @@ public class Main : MonoBehaviour , Iå­˜æ¡£ç›¸å…³æ¥å£
             temp.tag = "Untagged";
         }
     }
-    void æ‰§è¡Œå¡«å……(System.Object data)
+    void Ö´ĞĞÌî³ä( System.Object data)
     {
         if (data == null)
         {
@@ -485,68 +480,69 @@ public class Main : MonoBehaviour , Iå­˜æ¡£ç›¸å…³æ¥å£
         }
         foreach (PropertyInfo info in data.GetType().GetProperties())
         {
-            if (æ–‡æœ¬å®¹å™¨ != null)
+            if (ÎÄ±¾ÈİÆ÷ !=null)
             {
-                if (æ–‡æœ¬å®¹å™¨.ContainsKey(info.Name))
+                if (ÎÄ±¾ÈİÆ÷.ContainsKey(info.Name))
                 {
-                    if (data.GetType().GetProperty(info.Name).GetValue(data, null) != null)
+                    if (data.GetType().GetProperty(info.Name).GetValue(data,null)!=null)
                     {
-                        æ–‡æœ¬å®¹å™¨[info.Name].text = data.GetType().GetProperty(info.Name).GetValue(data, null) + "";
+                        ÎÄ±¾ÈİÆ÷[info.Name].text = data.GetType().GetProperty(info.Name).GetValue(data, null) + "";
                     }
                 }
             }
-            if (ä¸‹æ‹‰å®¹å™¨ != null)
+            if (ÏÂÀ­ÈİÆ÷ != null)
             {
-                if (ä¸‹æ‹‰å®¹å™¨.ContainsKey(info.Name))
+                if (ÏÂÀ­ÈİÆ÷.ContainsKey(info.Name))
                 {
                     if (data.GetType().GetProperty(info.Name).GetValue(data, null) != null)
                     {
-                        ä¸‹æ‹‰å®¹å™¨[info.Name].value = int.Parse(data.GetType().GetProperty(info.Name).GetValue(data, null) + "");
+                        ÏÂÀ­ÈİÆ÷[info.Name].value = int.Parse(data.GetType().GetProperty(info.Name).GetValue(data, null) + "");
                     }
                 }
             }
-            if (å¼€å…³å®¹å™¨ != null)
+            if (¿ª¹ØÈİÆ÷ != null)
             {
-                if (å¼€å…³å®¹å™¨.ContainsKey(info.Name))
+                if (¿ª¹ØÈİÆ÷.ContainsKey(info.Name))
                 {
                     if (data.GetType().GetProperty(info.Name).GetValue(data, null) != null)
                     {
-                        å¼€å…³å®¹å™¨[info.Name].isOn = int.Parse(data.GetType().GetProperty(info.Name).GetValue(data, null) + "") == 1 ? true : false;
+                        ¿ª¹ØÈİÆ÷[info.Name].isOn = int.Parse(data.GetType().GetProperty(info.Name).GetValue(data, null) + "") == 1 ? true:false ;
                     }
                 }
             }
         }
     }
 
+
+    // Start is called before the first frame update
     void Start()
     {
-        if (æ–‡æœ¬å®¹å™¨["è§’è‰²æ¨¡å‹"].text != null && æ–‡æœ¬å®¹å™¨["è§’è‰²æ¨¡å‹"].text != "")
+        if (ÎÄ±¾ÈİÆ÷["½ÇÉ«Ä£ĞÍ"].text !=null && ÎÄ±¾ÈİÆ÷["½ÇÉ«Ä£ĞÍ"].text != "")
         {
-            GameObject obj = Instantiate(Resources.Load<GameObject>("è§’è‰²æ¨¡å‹/" + æ–‡æœ¬å®¹å™¨["è§’è‰²æ¨¡å‹"].text));
-            obj.transform.parent = æ¼”ç¤ºè§’è‰²ä½ç½®;
+            GameObject obj = Instantiate(Resources.Load<GameObject>("½ÇÉ«Ä£ĞÍ/" + ÎÄ±¾ÈİÆ÷["½ÇÉ«Ä£ĞÍ"].text));
+            obj.transform.parent = ÑİÊ¾½ÇÉ«Î»ÖÃ;
             obj.transform.localPosition = Vector3.zero;
             obj.transform.localEulerAngles = Vector3.zero;
-            ani = obj.GetComponent<Animator>();
+            ani = obj.GetComponent<Animator>(); 
 
         }
     }
-    public void ç‚¹å‡»å…³é—­(GameObject obj)
+    public void µã»÷¹Ø±Õ(GameObject obj)
     {
         obj.SetActive(false);
     }
-    public Dropdown åŠŸèƒ½é€‰æ‹©;
-    public void æ–°å¢åŠŸèƒ½()
+    public Dropdown ¹¦ÄÜÑ¡Ôñ;
+    public void ĞÂÔö¹¦ÄÜ()
     {
-        switch (åŠŸèƒ½é€‰æ‹©.value)
-        {
+        switch(¹¦ÄÜÑ¡Ôñ.value){
             case 0:
-                æ‰“å¼€é€Ÿåº¦é¢æ¿();
+                ´ò¿ªËÙ¶ÈÃæ°å();
                 break;
         }
     }
-    public GameObject é€Ÿåº¦è°ƒæ•´é¢æ¿;
-    void æ‰“å¼€é€Ÿåº¦é¢æ¿()
+    public GameObject ËÙ¶Èµ÷ÕûÃæ°å;
+    void ´ò¿ªËÙ¶ÈÃæ°å()
     {
-        é€Ÿåº¦è°ƒæ•´é¢æ¿.SetActive(true);
+        ËÙ¶Èµ÷ÕûÃæ°å.SetActive(true);
     }
 }
