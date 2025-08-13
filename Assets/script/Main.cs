@@ -137,7 +137,7 @@ public class Main : MonoBehaviour , 存档相关接口
     public void 普攻绑定事件( 角色信息 角色信息_)
     {
         run = ani.runtimeAnimatorController;
-        var ride = new AnimatorOverrideController();
+        var ride = new AnimatorOverrideController(run);
         ride.runtimeAnimatorController = ani.runtimeAnimatorController;
         var _event = new AnimationEvent();
         _event.functionName = "打开攻击碰撞体";
@@ -284,7 +284,7 @@ public class Main : MonoBehaviour , 存档相关接口
             case 1:
                 if (已创建角色信息[0].特效1 != "" && 已创建角色信息[0].特效1 != null)
                 {
-                    Instantiate(Resources.Load<GameObject>("特效/" + 已创建角色信息[0].特效1),PlayerC.instance.transform) ;
+                    Instantiate(Resources.Load<GameObject>("特效/" + 已创建角色信息[0].特效1),PlayerC.instance.transform);
                 }
                 break;
             case 2:
