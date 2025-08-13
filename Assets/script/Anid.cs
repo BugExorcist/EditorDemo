@@ -10,8 +10,8 @@ public class Anid : StateMachineBehaviour
     }
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
-        if (stateInfo.normalizedTime >=1)
+        // stateInfo.normalizedTime表示动画的播放进度 区间[0,1]
+        if (stateInfo.normalizedTime >=1)// 动画播放完毕
         {
             if (animator.GetBool("是否循环"))
             {
