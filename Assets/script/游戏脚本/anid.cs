@@ -6,37 +6,37 @@ public class anid : StateMachineBehaviour
 { 
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Core.¶¯»­ÊÂ¼ş´¦Àí(animator); 
+        Core.åŠ¨ç”»äº‹ä»¶å¤„ç†(animator); 
     } 
     override public void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     { 
         if (stateInfo.normalizedTime >=1)
         {
-            if (animator.GetBool("ÊÇ·ñÑ­»·"))
+            if (animator.GetBool("æ˜¯å¦å¾ªç¯"))
             {
-                if (stateInfo.normalizedTime >= animator.GetFloat("Ñ­»·Ê±¼ä"))
+                if (stateInfo.normalizedTime >= animator.GetFloat("å¾ªç¯æ—¶é—´"))
                 {
-                    Core.½áÊø¶¯»­(animator);
+                    Core.ç»“æŸåŠ¨ç”»(animator);
                 }
             }
             else
             {
-                Core.½áÊø¶¯»­(animator);
+                Core.ç»“æŸåŠ¨ç”»(animator);
             } 
         }
     } 
      
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-         int Ê±»ú = -1;
-        int r = animator.GetInteger("µ±Ç°¶¯×÷");
+         int æ—¶æœº = -1;
+        int r = animator.GetInteger("å½“å‰åŠ¨ä½œ");
         if (r <= 3)
         {  
-                Ê±»ú = Core.¸ù¾İ±àºÅ»ñÈ¡Ê±»ú(r); 
-            if (Ê±»ú == 1)
+                æ—¶æœº = Core.æ ¹æ®ç¼–å·è·å–æ—¶æœº(r); 
+            if (æ—¶æœº == 1)
             { 
                 { 
-                    Core.»ñÈ¡ÌØĞ§Êı¾İ²¢²¥·Å(r);
+                    Core.è·å–ç‰¹æ•ˆæ•°æ®å¹¶æ’­æ”¾(r);
                 }
               
             }

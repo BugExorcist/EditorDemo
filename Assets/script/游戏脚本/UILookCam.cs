@@ -6,10 +6,10 @@ using UnityEngine;
 public class UILookCam : MonoBehaviour
 {
     [SerializeField]
-    bool Ö»³¯ÏòYÖá;
+    bool åªæœå‘Yè½´;
 
     [SerializeField]
-    bool isÄæÏò = false;
+    bool isé€†å‘ = false;
     // Update is called once per frame
     void LateUpdate()
     {
@@ -17,12 +17,12 @@ public class UILookCam : MonoBehaviour
         {
             return;
         }
-        if (Ö»³¯ÏòYÖá)
+        if (åªæœå‘Yè½´)
         {
             Vector3 v = Camera.main.transform.eulerAngles;
             v.x = 0;
             v.z = 0;
-            if (isÄæÏò)
+            if (isé€†å‘)
             {
                 v.y = -1 * v.y;
             }

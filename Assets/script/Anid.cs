@@ -1,40 +1,43 @@
-using System.Collections;
+ï»¿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class Anid : StateMachineBehaviour
 {
+    // å½“åŠ¨ç”»å¼€å§‹æ’­æ”¾æ—¶è°ƒç”¨
     public override void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        Core.¶¯»­ÊÂ¼ş´¦Àí(animator);
+        Core.åŠ¨ç”»äº‹ä»¶å¤„ç†(animator);
     }
+    // å½“åŠ¨ç”»æ’­æ”¾æ—¶æ¯å¸§è°ƒç”¨
     public override void OnStateUpdate(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-
-        if (stateInfo.normalizedTime >=1)
+        // stateInfo.normalizedTimeè¡¨ç¤ºåŠ¨ç”»æ’­æ”¾çš„ç™¾åˆ†æ¯” åŒºé—´ä¸º0-1 
+        if (stateInfo.normalizedTime >=1)// å½“åŠ¨ç”»æ’­æ”¾å®Œæ¯•æ—¶è°ƒç”¨
         {
-            if (animator.GetBool("ÊÇ·ñÑ­»·"))
+            if (animator.GetBool("æ˜¯å¦å¾ªç¯"))
             {
-                if (stateInfo.normalizedTime >= animator.GetFloat("Ñ­»·Ê±¼ä"))
+                if (stateInfo.normalizedTime >= animator.GetFloat("å¾ªç¯æ—¶é—´"))// å†™çš„æ˜¯å¾ªç¯æ—¶é—´ï¼Œå…¶å®æ˜¯å¾ªç¯æ¬¡æ•°
                 {
-                    Core.½áÊø¶¯»­(animator);
+                    Core.ç»“æŸåŠ¨ç”»(animator);
                 }
             }
         }
         else
         {
-            Core.½áÊø¶¯»­(animator);
+            Core.ç»“æŸåŠ¨ç”»(animator);
         }
     }
+    // å½“åŠ¨ç”»æ’­æ”¾å®Œæ¯•æ—¶è°ƒç”¨
     public override void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        int ±àºÅ = animator.GetInteger("µ±Ç°¶¯×÷");
-        if (±àºÅ <=3)
+        int ç¼–å· = animator.GetInteger("å½“å‰åŠ¨ä½œ");
+        if (ç¼–å· <=3)
         {
-            int Ê±»ú = Core.¸ù¾İ±àºÅ»ñÈ¡Ê±»ú(±àºÅ);
-            if (Ê±»ú==1)
+            int æ—¶æœº = Core.æ ¹æ®ç¼–å·è·å–æ—¶æœº(ç¼–å·);
+            if (æ—¶æœº==1)
             {
-                Core.»ñÈ¡ÌØĞ§Êı¾İ²¢²¥·Å(±àºÅ);
+                Core.è·å–ç‰¹æ•ˆæ•°æ®å¹¶æ’­æ”¾(ç¼–å·);
             }
         }
     }

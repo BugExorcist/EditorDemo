@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class anid_±à¼­Æ÷ : StateMachineBehaviour
+public class anid_ç¼–è¾‘å™¨ : StateMachineBehaviour
 {
    
     public Main script_;
@@ -14,29 +14,29 @@ public class anid_±à¼­Æ÷ : StateMachineBehaviour
         {
             script_ =    FindObjectOfType<Main>();
         }
-        bool rsl; int Ê±»ú = -1;
-       int r = animator.GetInteger("µ±Ç°¶¯×÷");
+        bool rsl; int æ—¶æœº = -1;
+       int r = animator.GetInteger("å½“å‰åŠ¨ä½œ");
         if (r < 3)
         {
 
             if (script_ == null)
             {
-                Ê±»ú = ÓÎÏ·³õÊ¼»¯.instance.¸ù¾İ±àºÅ»ñÈ¡Ê±»ú(r);
+                æ—¶æœº = æ¸¸æˆåˆå§‹åŒ–.instance.æ ¹æ®ç¼–å·è·å–æ—¶æœº(r);
             }
             else
             {
-                Ê±»ú = script_.¸ù¾İ±àºÅ»ñÈ¡Ê±»ú(r); 
+                æ—¶æœº = script_.æ ¹æ®ç¼–å·è·å–æ—¶æœº(r); 
             }
           
-            if (Ê±»ú==0)
+            if (æ—¶æœº==0)
             {
                 if (script_ == null)
                 {
-                    rsl = ÓÎÏ·³õÊ¼»¯.instance.»ñÈ¡ÌØĞ§Êı¾İ²¢²¥·Å(r);
+                    rsl = æ¸¸æˆåˆå§‹åŒ–.instance.è·å–ç‰¹æ•ˆæ•°æ®å¹¶æ’­æ”¾(r);
                 }
                 else
                 {
-                    rsl = script_.»ñÈ¡ÌØĞ§²¢²¥·Å(r);
+                    rsl = script_.è·å–ç‰¹æ•ˆå¹¶æ’­æ”¾(r);
                 }
             }
         }
@@ -47,44 +47,44 @@ public class anid_±à¼­Æ÷ : StateMachineBehaviour
        
         if (stateInfo.normalizedTime >=1)
         {
-            if (animator.GetBool("ÊÇ·ñÑ­»·"))
+            if (animator.GetBool("æ˜¯å¦å¾ªç¯"))
             {
-                if (stateInfo.normalizedTime >= animator.GetFloat("Ñ­»·Ê±¼ä"))
+                if (stateInfo.normalizedTime >= animator.GetFloat("å¾ªç¯æ—¶é—´"))
                 {
-                    ½áÊø¶¯»­(animator);
+                    ç»“æŸåŠ¨ç”»(animator);
                 }
             }
             else
             {
-                ½áÊø¶¯»­(animator);
+                ç»“æŸåŠ¨ç”»(animator);
             }
     
         }
     }
 
 
-    void ½áÊø¶¯»­(Animator animator)
+    void ç»“æŸåŠ¨ç”»(Animator animator)
     {
-        animator.SetFloat("Ñ­»·Ê±¼ä", 0);
-        animator.SetBool("ÊÇ·ñÑ­»·", false);
-        int r = animator.GetInteger("µ±Ç°¶¯×÷");
+        animator.SetFloat("å¾ªç¯æ—¶é—´", 0);
+        animator.SetBool("æ˜¯å¦å¾ªç¯", false);
+        int r = animator.GetInteger("å½“å‰åŠ¨ä½œ");
         if (r  < 3)
         {
             bool rsl;
             if (script_ == null)
             {
-                rsl = ÓÎÏ·³õÊ¼»¯.instance.»ñÈ¡¶¯»­Êı¾İ²¢²¥·Å(r + 1);
+                rsl = æ¸¸æˆåˆå§‹åŒ–.instance.è·å–åŠ¨ç”»æ•°æ®å¹¶æ’­æ”¾(r + 1);
             }
             else
             {
-                  rsl = script_.»ñÈ¡¶¯»­²¢²¥·Å(r + 1);
+                  rsl = script_.è·å–åŠ¨ç”»å¹¶æ’­æ”¾(r + 1);
             } 
 
             if (!rsl)
             {
                 if (PlayerC.instance!=null)
                 {
-                    Core.ÊÍ·Å¼¼ÄÜ²»ÄÜÒÆ¶¯ = false;
+                    Core.é‡Šæ”¾æŠ€èƒ½ä¸èƒ½ç§»åŠ¨ = false;
                 }
               
                 animator.Play("ID");
@@ -94,7 +94,7 @@ public class anid_±à¼­Æ÷ : StateMachineBehaviour
         {
             if (PlayerC.instance != null)
             {
-                Core.ÊÍ·Å¼¼ÄÜ²»ÄÜÒÆ¶¯ = false;
+                Core.é‡Šæ”¾æŠ€èƒ½ä¸èƒ½ç§»åŠ¨ = false;
             }
             animator.Play("ID");
         }
@@ -103,28 +103,28 @@ public class anid_±à¼­Æ÷ : StateMachineBehaviour
     // OnStateExit is called when a transition ends and the state machine finishes evaluating this state
     override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
     {
-        bool rsl; int Ê±»ú = -1;
-        int r = animator.GetInteger("µ±Ç°¶¯×÷");
+        bool rsl; int æ—¶æœº = -1;
+        int r = animator.GetInteger("å½“å‰åŠ¨ä½œ");
         if (r <= 3)
         {
           
             if (script_ == null)
             {
-                Ê±»ú = ÓÎÏ·³õÊ¼»¯.instance.¸ù¾İ±àºÅ»ñÈ¡Ê±»ú(r);
+                æ—¶æœº = æ¸¸æˆåˆå§‹åŒ–.instance.æ ¹æ®ç¼–å·è·å–æ—¶æœº(r);
             }
             else
             {
-                Ê±»ú = script_.¸ù¾İ±àºÅ»ñÈ¡Ê±»ú(r);
+                æ—¶æœº = script_.æ ¹æ®ç¼–å·è·å–æ—¶æœº(r);
             }
-            if (Ê±»ú == 1)
+            if (æ—¶æœº == 1)
             {
                 if (script_ == null)
                 {
-                    rsl = ÓÎÏ·³õÊ¼»¯.instance.»ñÈ¡ÌØĞ§Êı¾İ²¢²¥·Å(r);
+                    rsl = æ¸¸æˆåˆå§‹åŒ–.instance.è·å–ç‰¹æ•ˆæ•°æ®å¹¶æ’­æ”¾(r);
                 }
                 else
                 {
-                    rsl = script_.»ñÈ¡ÌØĞ§²¢²¥·Å(r);
+                    rsl = script_.è·å–ç‰¹æ•ˆå¹¶æ’­æ”¾(r);
                 }
             }
         }
